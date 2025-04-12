@@ -4,7 +4,6 @@ import { SubmitButton } from "@/components/submit-button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Link from "next/link";
-import { SmtpMessage } from "../(auth-pages)/smtp-message";
 
 export default async function Signup(props: {
   searchParams: Promise<Message>;
@@ -111,8 +110,8 @@ export default async function Signup(props: {
 
             <SubmitButton
               formAction={signUpAction}
-              pendingText="Signing up..."
-              className="mt-4 bg-primary text-black rounded-xl py-2 px-4 shadow-md hover:bg-primary/90 transition"
+              pendingText="กำลังสมัครสมาชิก..."
+              className="mt-4 bg-black text-white  rounded-xl py-2 px-4 shadow-md hover:bg-primary/90 transition"
             >
               สมัครสมาชิก
             </SubmitButton>

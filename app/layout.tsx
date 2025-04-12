@@ -1,11 +1,6 @@
-import DeployButton from "@/components/deploy-button";
-import { EnvVarWarning } from "@/components/env-var-warning";
-import HeaderAuth from "@/components/header-auth";
-import { ThemeSwitcher } from "@/components/theme-switcher";
-import { hasEnvVars } from "@/utils/supabase/check-env-vars";
-import { Geist, Kanit } from "next/font/google";
-import { ThemeProvider } from "next-themes";
-import Link from "next/link";
+
+import { Kanit } from "next/font/google";
+
 import "./globals.css";
 
 const defaultUrl = process.env.VERCEL_URL
@@ -19,8 +14,8 @@ export const metadata = {
 };
 
 const kanit = Kanit({
-  weight: "600",
-  subsets: ["latin"],
+  weight: ['400', '500', '600', '700'],
+  subsets: ['latin'],
 });
 
 export default function RootLayout({
@@ -30,7 +25,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={kanit.className} suppressHydrationWarning>
-      <body className="bg-[url('./background.png')] bg-cover bg-center min-h-screen">
+      <body className="bg-[url('./background.png')] bg-cover bg-center min-h-screen" cz-shortcut-listen="true">
         {children}
       </body>
     </html>
