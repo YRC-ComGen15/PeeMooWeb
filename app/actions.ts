@@ -4,6 +4,7 @@ import { encodedRedirect } from "@/utils/utils";
 import { createClient } from "@/utils/supabase/server";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
+import { cookies as getCookies } from "next/headers"; // ✅ เปลี่ยนชื่อชัดเจน
 
 export const signUpAction = async (formData: FormData) => {
   const email = formData.get("email")?.toString();
@@ -87,11 +88,45 @@ export const signInAction = async (formData: FormData) => {
   const password = formData.get("password") as string;
   const supabase = await createClient();
 
-  const { error } = await supabase.auth.signInWithPassword({ email, password });
+  // 1. เข้าสู่ระบบ
+  const { data: signInData, error: signInError } =
+    await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
 
-  if (error) {
-    return encodedRedirect("error", "/sign-in", error.message);
+  if (signInError) {
+    return encodedRedirect("error", "/sign-in", signInError.message);
   }
+
+  const userId = signInData.user.id;
+
+  // 2. ดึงข้อมูลผู้ใช้จาก table profile หรือ table ที่เก็บ botcode (เช่น 'bot')
+  const { data: userProfile, error: profileError } = await supabase
+    .from("bot")
+    .select("b_code")
+    .eq("user_id", userId) // แก้ตรงนี้ตามโครงสร้างฐานข้อมูลของคุณ
+    .single(); // คาดว่า 1 คนมี 1 botcode
+
+  if (profileError || !userProfile) {
+    return encodedRedirect(
+      "error",
+      "/sign-in",
+      "ไม่พบข้อมูล botcode สำหรับผู้ใช้รายนี้"
+    );
+  }
+
+  const botcode = userProfile.b_code;
+
+  // ✅ รอ cookies() ก่อน
+  const cookieStore = await getCookies();
+  cookieStore.set("botcode", botcode, {
+    httpOnly: true,
+    secure: true,
+    sameSite: "lax",
+    path: "/",
+    maxAge: 60 * 60 * 24 * 7, // 7 วัน
+  });
 
   return redirect("/");
 };
@@ -201,9 +236,7 @@ export const updatePassword = async (formData: FormData) => {
   }
 
   // ยืนยันรหัสผ่านเก่า โดย sign in อีกครั้ง
-  const {
-    error: signInError,
-  } = await supabase.auth.signInWithPassword({
+  const { error: signInError } = await supabase.auth.signInWithPassword({
     email: user.email,
     password: o_password,
   });

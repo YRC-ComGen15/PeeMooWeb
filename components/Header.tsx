@@ -39,7 +39,7 @@ export default async function Header() {
 
         {/* ปุ่มแก้ไขสินค้า */}
         <Link
-          href="/product"
+          href="/category"
           className="flex items-center gap-2 bg-transparent hover:bg-black text-[#000000b9] hover:text-white border-2 border-[#00000083] duration-300 font-medium px-4 py-2 transition rounded-[7px] text-sm md:text-base"
         >
           <Shapes size={18} />
