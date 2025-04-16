@@ -49,6 +49,7 @@ export default async function OrdersPage(props: {
                     <th className="px-6 py-3">สถานะ</th>
                     <th className="px-6 py-3">ผู้สั่งซื้อ</th>
                     <th className="px-6 py-3">เวลา</th>
+                    <th className="px-6 py-3">รหัสคำสั่งซื้อ</th>
                     <th className="px-6 py-3">ตัวเลือก</th>
                   </tr>
                 </thead>
@@ -72,6 +73,10 @@ export default async function OrdersPage(props: {
                       </td>
                       <td className="px-6 py-4 font-medium text-gray-900">
                         {new Date(order.timestamp).toLocaleString("th-TH")}
+                      </td>
+
+                      <td className="px-6 py-4 font-medium text-gray-900">
+                      {order.order_id}
                       </td>
 
                       <td className="px-6 py-4 font-medium text-gray-900">

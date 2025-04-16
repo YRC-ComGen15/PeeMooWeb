@@ -54,7 +54,6 @@ export default async function Product(props: {
                     <th className="px-6 py-3">ประเภทสินค้า</th>
                     <th className="px-6 py-3">ราคา</th>
                     <th className="px-6 py-3">สถานะ</th>
-
                     <th className="px-6 py-3">จัดการ</th>
                   </tr>
                 </thead>

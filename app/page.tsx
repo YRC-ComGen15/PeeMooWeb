@@ -54,8 +54,8 @@ export default async function Home() {
   return (
     <>
       <Header />
-      <div className="pt-[120px] px-4 md:px-9">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+      <div className="pt-16 md:pt-[120px] px-4 md:px-9">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mb-6">
           <StatCard title="ยอดขายรวม" value={`${formattedTotalSales} บาท`} />
           <StatCard title="จำนวนออเดอร์ทั้งหมด" value={`${totalOrders} ออเดอร์`} />
           <StatCard title="สินค้ายอดนิยม" value={bestSeller} />
@@ -75,7 +75,7 @@ function StatCard({ title, value }: { title: string; value: string }) {
   return (
     <div className="bg-white p-6 rounded-xl shadow-xl text-center">
       <h3 className="text-sm text-gray-500">{title}</h3>
-      <p className="text-2xl font-bold text-black">{value}</p>
+      <p className="text-xl sm:text-2xl font-bold text-black">{value}</p>
     </div>
   );
 }
