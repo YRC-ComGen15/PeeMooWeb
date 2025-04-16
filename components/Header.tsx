@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Bell, Sun, ShoppingCart, LayoutDashboard, User, Shapes } from "lucide-react";
+import { ShoppingBasket, ShoppingCart, LayoutDashboard, User, Shapes } from "lucide-react";
 import Image from "next/image";
 import { redirect } from "next/navigation";
 
@@ -44,6 +44,15 @@ export default async function Header() {
         >
           <Shapes size={18} />
           แก้ไขหมวดหมู่
+        </Link>
+
+        {/* ปุ่มดู orders */}
+        <Link
+          href="/orders"
+          className="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white font-medium px-4 py-2 transition rounded-[7px] duration-300 text-sm md:text-base"
+        >
+          <ShoppingBasket size={18} />
+          ออเดอร์ทั้งหมด
         </Link>
 
         {/* ปุ่มแดชบอร์ด */}

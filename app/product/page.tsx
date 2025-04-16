@@ -92,7 +92,7 @@ export default async function Product(props: {
                   {categories?.length === 0 && (
                     <tr>
                       <td colSpan={5} className="text-center py-5">
-                        ไม่พบหมวดหมู่
+                        ไม่พบสินค้า
                       </td>
                     </tr>
                   )}
