@@ -3,7 +3,7 @@ import { createClient } from "@/utils/supabase/server";
 import Header from "@/components/Header";
 import OrderChartWrapper from "@/components/charts/OrderChartWrapper";
 
-export default async function Home() {
+export default async function DashboardPage() {
   const supabase = await createClient();
   const cookieStore = cookies();
   const b_id = cookieStore.get("botcode")?.value;
@@ -24,7 +24,11 @@ export default async function Home() {
   }
 
   // 📊 คำนวณสถิติ
-  const totalSales = orders.reduce((sum, order) => sum + (order.price || 0), 0);
+  const totalSales = orders.reduce((sum, order) => {
+    const price = parseFloat(order.price?.toString() || '0'); // แปลงเป็นตัวเลข
+    return sum + (isNaN(price) ? 0 : price); // ตรวจสอบหากเป็น NaN ให้บวก 0 แทน
+  }, 0);
+
   const totalOrders = orders.length;
 
   const productCount: Record<string, number> = {};
@@ -48,8 +52,8 @@ export default async function Home() {
     total,
   }));
 
-  // Convert totalSales to remove leading zero and format it
-  const formattedTotalSales = parseFloat(totalSales.toString()).toLocaleString();
+  // แปลง totalSales ให้เป็นตัวเลขและแสดงผลในรูปแบบที่ต้องการ
+  const formattedTotalSales = totalSales.toLocaleString();
 
   return (
     <>

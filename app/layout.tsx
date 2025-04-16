@@ -1,4 +1,3 @@
-
 import { Kanit } from "next/font/google";
 
 import "./globals.css";
@@ -14,8 +13,8 @@ export const metadata = {
 };
 
 const kanit = Kanit({
-  weight: ['400', '500', '600', '700'],
-  subsets: ['latin'],
+  weight: ["400", "500", "600", "700"],
+  subsets: ["latin"],
 });
 
 export default function RootLayout({
@@ -25,7 +24,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={kanit.className} suppressHydrationWarning>
-      <body className="bg-[url('./background.png')] bg-cover bg-center min-h-screen" cz-shortcut-listen="true">
+      <head>
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+      </head>
+      <body
+        className="bg-[url('./background.png')] bg-cover bg-center min-h-screen"
+        cz-shortcut-listen="true"
+      >
         {children}
       </body>
     </html>
